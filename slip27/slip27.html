@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+ <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ </head>
+ <body>
+ <h2>Voter Registration</h2>
+ <form id="voterForm">
+ Name: <input type="text" id="name" required><br>
+ Age: <input type="number" id="age" required><br>
+ Nationality: <input type="text" id="nationality" required><br>
+ <input type="submit" value="Submit">
+ </form>
+ <div id="message"></div>
+ <script>
+ $('#voterForm').submit(function(e) {
+ e.preventDefault();
+ var name = $('#name').val();
+ var age = $('#age').val();
+ var nationality = $('#nationality').val();
+ if (name !== name.toUpperCase()) {
+        $('#message').html('<p>Name should be in upper case letters only.</p>');
+        return;
+    }
+    if (age < 18) {
+        $('#message').html('<p>Age should not be less than 18 years.</p>');
+        return;
+    }
+    if (nationality !== 'Indian') {
+        $('#message').html('<p>Nationality should be Indian.</p>');
+        return;
+    }
+    $.ajax({
+        url: 'registerVoter.php',
+        type: 'post',
+        data: {name: name, age: age, nationality: nationality},
+        success: function(data) {
+            $('#message').html('<p>' + data + '</p>');
+        }
+    });
+ });
+ </script>
+ </body>
+ </html>

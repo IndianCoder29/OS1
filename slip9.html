@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form</title>
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Regular expression to validate username: should contain only letters, numbers, underscores, and be between 4 to 16 characters long
+            var usernameRegex = /^[a-zA-Z0-9_]{4,16}$/;
+            
+            // Regular expression to validate password: should be at least 8 characters long, and contain at least one uppercase letter, one lowercase letter, one number, and one special character
+            var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+\\|[\]{};:'",.<>/?]).{8,}$/;
+            
+            // Test if the username and password match the regular expressions
+            var isUsernameValid = usernameRegex.test(username);
+            var isPasswordValid = passwordRegex.test(password);
+
+            if (!isUsernameValid) {
+                alert("Username should contain only letters, numbers, and underscores and be between 4 to 16 characters long.");
+                return false;
+            }
+
+            if (!isPasswordValid) {
+                alert("Password should be at least 8 characters long, and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Membership Signup</h2>
+    <form onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AJAX Auto Suggestions Example</title>
+    <script>
+      function fetchSuggestions(str) {
+        if (str.length == 0) {
+                document.getElementById("suggestions").innerHTML = "";
+                return;
+        }
+        const suggestions = [
+          "apple",
+          "banana",
+          "cherry",
+          "dates",
+          "elderberry",
+          "fig",
+          "grape",
+          "honeydew",
+          "kiwi",
+          "lemon",
+        ];
+        const matches = suggestions.filter((suggestion) =>
+          suggestion.toLowerCase().startsWith(str.toLowerCase())
+        );
+        document.getElementById("suggestions").innerHTML =
+          matches.length > 0 ? matches.join("<br>") : "No suggestions found";
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" onkeyup="fetchSuggestions(this.value)" />
+    <div id="suggestions"></div>
+  </body>
+</html>

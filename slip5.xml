@@ -1,0 +1,27 @@
+<item>
+    <item type="Clothing">
+    <item-name>Shirt</item-name>
+    <item-rate>1000</item-rate>
+    <item-qty>10</item-qty>
+    </item>
+    <item type="Electronics">
+    <item-name>Phone</item-name>
+    <item-rate>10000</item-rate>
+    <item-qty>5</item-qty>
+    </item>
+    <item type="Book">
+    <item-name>Harry Pottor</item-name>
+    <item-rate>100</item-rate>  
+    <item-qty>100</item-qty>
+    </item>
+    <item type="Sports">
+    <item-name>BasketBall</item-name>
+    <item-rate>200</item-rate>
+    <item-qty>75</item-qty>
+    </item>
+    <item type="Jewellery">
+    <item-name>Braclet</item-name>
+    <item-rate>100000</item-rate>
+    <item-qty>2</item-qty>
+    </item>
+</item>

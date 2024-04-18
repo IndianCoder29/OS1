@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>AJAX Name Check</title>
+   <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script>
+       $(document).ready(function() {
+           $("#name").keyup(function() {
+               var name = $(this).val();
+               $.ajax({
+                   url: 'check_name.php',
+                   type: 'POST',
+                   data: {name: name},
+                   success: function(response) {
+                       $('#message').text(response);
+                   }
+               });
+           });
+       });
+   </script>
+</head>
+<body>
+   <input type="text" id="name" placeholder="Enter your name">
+   <p id="message">Stranger, please tell me your name!</p>
+</body>
+</html>

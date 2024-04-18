@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h2>Select Employee</h2>
+<select id="employee">
+   <!-- Options will be loaded dynamically -->
+</select>
+<div id="employeeDetails"></div>
+<script>
+$(document).ready(function(){
+   $.ajax({
+       url: 'getEmployees.php',
+       type: 'get',
+       dataType: 'json',
+       success: function(data) {
+           $.each(data, function(key, value) {
+               $('#employee').append('<option value="' + value.eno + '">' + 
+value.ename + '</option>');
+           });
+       }
+   });
+   $('#employee').change(function(){
+       var eno = $(this).val();
+       $.ajax({
+           url: 'getEmployeeDetails.php',
+           type: 'get',
+           data: {eno: eno},
+           dataType: 'json',
+           success: function(data) {
+               $('#employeeDetails').html('<p>Name: ' + data.ename + 
+'</p><p>Designation: ' + data.designation + '</p><p>Salary: ' + data.salary + 
+'</p>');
+           }
+       });
+   });
+});
+</script>
+</body>
+</html>
