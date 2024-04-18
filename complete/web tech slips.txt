@@ -1,0 +1,1417 @@
+slip 1 
+Write a PHP script to keep track of number of times the web page has been accessed 
+(Use Session 
+Tracking).
+ <?php
+ // Start the session
+ session_start();
+ // Check if the count variable exists in the session
+ if(!isset($_SESSION['count'])) {
+    // If it doesn't exist, initialize it to 0
+    $_SESSION['count'] = 0;
+ } else {
+    // If it does exist, increment it by 1
+    $_SESSION['count']++;
+ }
+ echo "This page has been accessed " . $_SESSION['count'] . " times.";
+ ?>
+ ******************************************************
+ slip 2
+ Write a PHP script to change the preferences of your web page like font style, font
+ size, font color, 
+background color using cookie. Display selected setting on next web page and actual
+ implementation 
+(with new settings) on third page (Use Cookies).
+ <?php
+ // Check if form is submitted
+ if(isset($_POST['submit'])) {
+    // Set cookies for the preferences
+    setcookie('font_style', $_POST['font_style'], time() + (86400 * 30), "/"); // 
+86400 = 1 day
+    setcookie('font_size', $_POST['font_size'], time() + (86400 * 30), "/");
+    setcookie('font_color', $_POST['font_color'], time() + (86400 * 30), "/");
+    setcookie('background_color', $_POST['background_color'], time() + (86400 * 
+30), "/");
+    
+    // Redirect to the next page
+    header('Location: display.php');
+ }
+ ?>
+ <!-- HTML form for setting the preferences -->
+ <form method="post" action="">
+    Font Style: <input type="text" name="font_style"><br>
+    Font Size: <input type="text" name="font_size"><br>
+    Font Color: <input type="text" name="font_color"><br>
+    Background Color: <input type="text" name="background_color"><br>
+    <input type="submit" name="submit" value="Set Preferences">
+ </form>
+ display.php
+ <?php
+ echo 'Font Style: ' . $_COOKIE['font_style'] . '<br>';
+ echo 'Font Size: ' . $_COOKIE['font_size'] . '<br>';
+ echo 'Font Color: ' . $_COOKIE['font_color'] . '<br>';
+ echo 'Background Color: ' . $_COOKIE['background_color'];
+ implementation.php
+ <?php
+ echo '<body style="font-family:' . $_COOKIE['font_style'] . '; font-size:' . 
+$_COOKIE['font_size'] . '; color:' . $_COOKIE['font_color'] . '; background-color:'
+ . $_COOKIE['background_color'] . ';">';
+ echo 'This is your webpage with your selected preferences.';
+ echo '</body>';
+ ?>
+ ***********************************************************
+ slip 3
+ Write a PHP script to accept username and password. If in the first three chances, 
+username and 
+password entered is correct then display second form with “Welcome message” 
+otherwise display error 
+message. [Use Session]
+ login.html
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Login</title>
+ </head>
+ <body>
+    <!-- HTML form for entering the username and password -->
+    <form method="post" action="login.php">
+        Username: <input type="text" name="username"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" name="submit" value="Login">
+    </form>
+ </body>
+ </html>
+ login.php
+ <?php
+ // Start the session
+ session_start();
+// Check if the count variable exists in the session
+ if(!isset($_SESSION['count'])) {
+    // If it doesn't exist, initialize it to 0
+    $_SESSION['count'] = 0;
+ }
+ // Check if form is submitted
+ if(isset($_POST['submit'])) {
+    // Increment the count
+    $_SESSION['count']++;
+    // Check if the username and password are correct
+    if($_POST['username'] == 'correct_username' && $_POST['password'] == 
+'correct_password') {
+        // If they are correct, display the welcome message
+        echo 'Welcome!';
+    } else {
+        // If they are not correct and this is the third attempt, display the error
+ message
+        if($_SESSION['count'] >= 3) {
+            echo 'Error: You have exceeded the maximum number of login attempts.';
+        } else {
+            // If they are not correct but this is not the third attempt, allow the
+ user to try again
+            echo 'Incorrect username or password. Please try again.';
+        }
+    }
+ }
+ ?>
+ ********************************************************
+ slip 4
+ Write a PHP script to accept Employee details (Eno, Ename, Address) on first page. 
+On second 
+page accept earning (Basic, DA, HRA). On third page print Employee information 
+(Eno, Ename, Address, 
+Basic, DA, HRA, Total) [ Use Session]
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Employee Details</title>
+ </head>
+ <body>
+    <!-- HTML form for entering the employee details -->
+    <form method="post" action="earnings.php">
+        Eno: <input type="text" name="eno"><br>
+        Ename: <input type="text" name="ename"><br>
+        Address: <input type="text" name="address"><br>
+        <input type="submit" name="submit" value="Next">
+    </form>
+</body>
+ </html>
+ earnings.php
+ <?php
+ // Start the session
+ session_start();
+ // Store the employee details in the session
+ $_SESSION['eno'] = $_POST['eno'];
+ $_SESSION['ename'] = $_POST['ename'];
+ $_SESSION['address'] = $_POST['address'];
+ ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Earnings</title>
+ </head>
+ <body>
+    <!-- HTML form for entering the earnings -->
+    <form method="post" action="display.php">
+        Basic: <input type="text" name="basic"><br>
+        DA: <input type="text" name="da"><br>
+        HRA: <input type="text" name="hra"><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+ </body>
+ </html>
+ display.php
+ <?php
+ // Start the session
+ session_start();
+ // Store the earnings in the session
+ $_SESSION['basic'] = $_POST['basic'];
+ $_SESSION['da'] = $_POST['da'];
+ $_SESSION['hra'] = $_POST['hra'];
+ // Calculate the total earnings
+ $total = $_SESSION['basic'] + $_SESSION['da'] + $_SESSION['hra'];
+ // Display the employee information and earnings
+ echo 'Eno: ' . $_SESSION['eno'] . '<br>';
+ echo 'Ename: ' . $_SESSION['ename'] . '<br>';
+ echo 'Address: ' . $_SESSION['address'] . '<br>';
+ echo 'Basic: ' . $_SESSION['basic'] . '<br>';
+ echo 'DA: ' . $_SESSION['da'] . '<br>';
+echo 'HRA: ' . $_SESSION['hra'] . '<br>';
+ echo 'Total: ' . $total;
+ ?>
+ ***********************************************************
+ slip 5
+ Create XML file named “Item.xml”with item-name, item-rate, item quantity Store the 
+details of 5 
+Items of different Types
+ item.xml
+ <?xml version="1.0" encoding="UTF-8"?>
+ <items>
+    <item>
+        <item-name>Apple</item-name>
+        <item-rate>0.5</item-rate>
+        <item-quantity>100</item-quantity>
+    </item>
+    <item>
+        <item-name>Banana</item-name>
+        <item-rate>0.3</item-rate>
+        <item-quantity>150</item-quantity>
+    </item>
+    <item>
+        <item-name>Cherry</item-name>
+        <item-rate>2</item-rate>
+        <item-quantity>200</item-quantity>
+    </item>
+    <item>
+        <item-name>Date</item-name>
+        <item-rate>1.5</item-rate>
+        <item-quantity>50</item-quantity>
+    </item>
+    <item>
+        <item-name>Elderberry</item-name>
+        <item-rate>3</item-rate>
+        <item-quantity>75</item-quantity>
+    </item>
+ </items>
+ ***********************************************************
+ slip 6
+ Write PHP script to read “book.xml” file into simpleXML object. Display attributes 
+and elements .
+ ( simple_xml_load_file() function )
+ <?php
+ // Load the XML file into a SimpleXML object
+ $xml = simplexml_load_file('book.xml');
+// Display the attributes and elements of the SimpleXML object
+ foreach($xml->children() as $book) {
+    echo 'Book: ' . $book['id'] . '<br>';
+    echo 'Title: ' . $book->title . '<br>';
+    echo 'Author: ' . $book->author . '<br>';
+    echo 'Year: ' . $book->year . '<br>';
+    echo 'Price: ' . $book->price . '<br><br>';
+ }
+ ?>
+ book.xml
+ <?xml version="1.0" encoding="UTF-8"?>
+ <catalog>
+    <book id="bk101">
+        <title>XML Developer's Guide</title>
+        <author>Gambardella, Matthew</author>
+        <year>2002</year>
+        <price>44.95</price>
+    </book>
+    <!-- More books... -->
+ </catalog>
+ ***********************************************************
+ slip 7
+ Write a PHP script to read “Movie.xml” file and print all MovieTitle and ActorName
+ of file using 
+DOMDocument Parser. “Movie.xml” file should contain following information with at 
+least 5 records 
+with values. MovieInfoMovieNo, MovieTitle, ActorName ,ReleaseYear
+ <?php
+ // Create a new DOMDocument object
+ $dom = new DOMDocument();
+ // Load the XML file into the DOMDocument object
+ $dom->load('Movie.xml');
+ // Get all the 'MovieInfo' elements
+ $movies = $dom->getElementsByTagName('MovieInfo');
+ // Loop through the 'MovieInfo' elements
+ foreach($movies as $movie) {
+    // Get the 'MovieTitle' and 'ActorName' elements
+    $title = $movie->getElementsByTagName('MovieTitle')->item(0)->nodeValue;
+    $actor = $movie->getElementsByTagName('ActorName')->item(0)->nodeValue;
+    // Print the title and actor
+    echo 'MovieTitle: ' . $title . ', ActorName: ' . $actor . '<br>';
+ }
+ ?>
+Movie.xml
+ <?xml version="1.0" encoding="UTF-8"?>
+ <movies>
+    <MovieInfo>
+        <MovieNo>1</MovieNo>
+        <MovieTitle>Movie Title 1</MovieTitle>
+        <ActorName>Actor Name 1</ActorName>
+        <ReleaseYear>2001</ReleaseYear>
+    </MovieInfo>
+    <!-- More movies... -->
+ </movies>
+ ***********************************************************
+ slip 8
+ Write a JavaScript to display message ‘Exams are near, have you started preparing 
+for?’ (usealert
+ box ) and Accept any two numbers from user and display addition of two number .(Use
+ Prompt and 
+confirm box) 
+<!DOCTYPE html>
+ <html>
+ <head>
+    <title>JavaScript Alert and Prompt</title>
+ </head>
+ <body>
+    <script>
+        // Display the message using an alert box
+        alert('Exams are near, have you started preparing for?');
+        // Accept two numbers from the user using prompt boxes
+        var num1 = parseInt(prompt('Enter the first number:'));
+        var num2 = parseInt(prompt('Enter the second number:'));
+        // Calculate the sum of the two numbers
+        var sum = num1 + num2;
+        // Display the sum using an alert box
+        alert('The sum of the two numbers is: ' + sum);
+    </script>
+ </body>
+ </html>
+ ***********************************************************
+ slip 9
+ Write a JavaScript function to validate username and password for a membership 
+form.
+ <!DOCTYPE html>
+<html>
+ <head>
+    <title>Membership Form</title>
+    <script>
+        function validateForm() {
+            // Get the username and password
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            // Check if the username and password are not empty
+            if(username == "" || password == "") {
+                alert('Username and password cannot be empty.');
+                return false;
+            }
+            // Check if the username and password meet the length requirements
+            if(username.length < 5 || password.length < 8) {
+                alert('Username must be at least 5 characters and password must be 
+at least 8 characters.');
+                return false;
+            }
+            // If everything is valid, return true
+            return true;
+        }
+    </script>
+ </head>
+ <body>
+    <!-- HTML form for entering the username and password -->
+    <form onsubmit="return validateForm()">
+        Username: <input type="text" id="username" name="username"><br>
+        Password: <input type="password" id="password" name="password"><br>
+        <input type="submit" value="Submit">
+    </form>
+ </body>
+ </html>
+ ***********************************************************
+ slip 10
+ Create a HTML fileto insert text before and after a Paragraph using jQuery. [Hint :
+ Use before( ) 
+and after( )]
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>jQuery Insert Text</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("p").before("<p>This text is inserted before the paragraph.</p>");
+            $("p").after("<p>This text is inserted after the paragraph.</p>");
+        });
+    </script>
+ </head>
+ <body>
+    <p>This is a paragraph.</p>
+ </body>
+ </html>
+ ***********************************************************
+ slip 11
+ Write a Javascript program to accept name of student, change font color to red, 
+font size to 18 if 
+student name is present otherwise on clicking on empty text box display image which
+ changes its size 
+(Use onblur, onload, onmousehover, onmouseclick, onmouseup)
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Student Name</title>
+    <style>
+        #studentName {
+            font-size: 18px;
+            color: black;
+        }
+        #placeholderImage {
+            width: 100px;
+            height: 100px;
+            display: none;
+        }
+    </style>
+ </head>
+ <body>
+    <input type="text" id="studentName" placeholder="Enter student name" 
+onblur="checkName()" onclick="showImage()" onmouseup="resizeImage()">
+    <img id="placeholderImage" src="C:\Users\Dell\Downloads\wallpaper.jpg" 
+onmouseover="resizeImage()">
+    <script>
+        function checkName() {
+            var studentName = document.getElementById('studentName');
+            if(studentName.value != '') {
+                studentName.style.color = 'red';
+            }
+        }
+        function showImage() {
+            var studentName = document.getElementById('studentName');
+            var placeholderImage = document.getElementById('placeholderImage');
+            if(studentName.value == '') {
+                placeholderImage.style.display = 'block';
+            }
+        }
+        function resizeImage() {
+            var placeholderImage = document.getElementById('placeholderImage');
+            placeholderImage.style.width = '200px';
+            placeholderImage.style.height = '200px';
+        }
+    </script>
+ </body>
+ </html>
+ ***********************************************************
+ slip 12
+ Write AJAX program to read contact.dat file and print the contents of the file in a
+ tabular format 
+when the user clicks on print button. Contact.dat file should contain srno, name, 
+residence number, 
+mobile number, Address. [Enter at least 3 record in contact.dat file] 
+<!DOCTYPE html>
+ <html>
+ <head>
+    <title>AJAX Read File</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#printButton").click(function() {
+                $.ajax({
+                    url: 'contact.dat',
+                    dataType: 'text',
+                    success: function(data) {
+                        var lines = data.split('\n');
+                        var table = $('<table>');
+                        lines.forEach(function(line) {
+                            var row = $('<tr>');
+                            var cells = line.split(',');
+                            cells.forEach(function(cell) {
+                                row.append($('<td>').text(cell));
+                            });
+                            table.append(row);
+                        });
+                        $('#output').html(table);
+                    }
+                });
+            });
+        });
+    </script>
+ </head>
+ <body>
+    <button id="printButton">Print</button>
+    <div id="output"></div>
+ </body>
+ </html>
+ contact.dat
+ 1,John Doe,1234567890,0987654321,123 Main St
+ 2,Jane Doe,2345678901,1098765432,456 Maple Dr
+ 3,Jim Doe,3456789012,2109876543,789 Oak Ln
+ ***********************************************************
+ slip 13
+ Write AJAX program where the user is requested to write his or her name in a text 
+box, and the 
+server keeps sending back responses while the user is typing. If the user name is 
+not entered then the 
+message displayed will be, “Stranger, please tell me your name!”. If the name is 
+Rohit, Virat, Dhoni, 
+Ashwin or Harbhajan , the server responds with “Hello, master !”. If the name is 
+anything else, the 
+message will be “, I don’t know you!”
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>AJAX Name Check</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#name").keyup(function() {
+                var name = $(this).val();
+                $.ajax({
+                    url: 'check_name.php',
+                    type: 'POST',
+                    data: {name: name},
+                    success: function(response) {
+                        $('#message').text(response);
+                    }
+                });
+            });
+        });
+    </script>
+ </head>
+ <body>
+    <input type="text" id="name" placeholder="Enter your name">
+    <p id="message">Stranger, please tell me your name!</p>
+ </body>
+ </html>
+ check_name.php
+ <?php
+ $name = $_POST['name'];
+ if($name == '') {
+    echo 'Stranger, please tell me your name!';
+ } elseif($name == 'Rohit' || $name == 'Virat' || $name == 'Dhoni' || $name == 
+'Ashwin' || $name == 'Harbhajan') {
+    echo 'Hello, master!';
+ } else {
+    echo $name . ', I don’t know you!';
+ }
+ ?>
+ ***********************************************************
+ slip 14
+ Create TEACHER table as follows TEACHER(tno, tname, qualification, salary). Write 
+Ajax 
+program to select a teachers name and print the selected teachers details
+ sql
+ CREATE TABLE TEACHER (
+    tno INT PRIMARY KEY,
+    tname VARCHAR(100),
+    qualification VARCHAR(100),
+    salary DECIMAL(10, 2)
+ );
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Select Teacher</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#selectTeacher").change(function() {
+                var tname = $(this).val();
+                $.ajax({
+                    url: 'get_teacher_details.php',
+                    type: 'POST',
+                    data: {tname: tname},
+                    success: function(response) {
+                        $('#teacherDetails').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+ </head>
+ <body>
+    <select id="selectTeacher">
+        <!-- Options will be populated with teacher names from the database -->
+    </select>
+    <div id="teacherDetails"></div>
+ </body>
+ </html>
+ get_teacher_details.php
+ <?php
+ $host = "localhost";
+ $dbname = "myDB";
+ $username = "username";
+ $password = "password";
+ // Create connection
+ $conn = pg_connect("host=$host dbname=$dbname user=$username password=$password");
+ // Check connection
+ if (!$conn) {
+    die("Connection failed: " . pg_last_error());
+ }
+ $tname = $_POST['tname'];
+ $sql = "SELECT * FROM TEACHER WHERE tname = '$tname'";
+ $result = pg_query($conn, $sql);
+ if (pg_num_rows($result) > 0) {
+    // Output data of each row
+    while($row = pg_fetch_assoc($result)) {
+        echo "tno: " . $row["tno"]. ", tname: " . $row["tname"]. ", qualification: 
+" . $row["qualification"]. ", salary: " . $row["salary"]. "<br>";
+    }
+ } else {
+    echo "0 results";
+ }
+ pg_close($conn);
+ ?>
+ ***********************************************************
+ slip 15
+ Write Ajax program to fetch suggestions when is user is typing in a textbox. (eg 
+like google 
+suggestions. Hint create array of suggestions and matching string will be 
+displayed) 
+<!DOCTYPE html>
+ <html>
+ <head>
+    <title>Text Suggestions</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var suggestions = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry', 
+'Fig', 'Grape', 'Honeydew', 'Iced Tea', 'Jackfruit'];
+            $("#textbox").keyup(function() {
+                var input = $(this).val().toLowerCase();
+                var matches = suggestions.filter(function(suggestion) {
+                    return suggestion.toLowerCase().startsWith(input);
+                });
+                $('#suggestions').html(matches.join('<br>'));
+            });
+        });
+    </script>
+ </head>
+ <body>
+    <input type="text" id="textbox" placeholder="Start typing...">
+    <div id="suggestions"></div>
+ </body>
+ </html>
+ ***********************************************************
+ slip 16
+ Write Ajax program to get book details from XML file when user select a book name. 
+Create XML 
+file for storing details of book(title, author, year, price).
+ books.xml
+ <?xml version="1.0" encoding="UTF-8"?>
+ <catalog>
+    <book id="bk101">
+        <title>XML Developer's Guide</title>
+        <author>Gambardella, Matthew</author>
+        <year>2002</year>
+        <price>44.95</price>
+    </book>
+    <book id="bk102">
+        <title>XML Developer's Guide</title>
+        <author>Gambardella, Matthew</author>
+        <year>2002</year>
+        <price>44.95</price>
+    </book>
+    <!-- More books... -->
+</catalog>
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Select Book</title>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#selectBook").change(function() {
+                var title = $(this).val();
+                $.ajax({
+                    url: 'get_book_details.php',
+                    type: 'POST',
+                    data: {title: title},
+                    success: function(response) {
+                        $('#bookDetails').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+ </head>
+ <body>
+    <select id="selectBook">
+        <option>XML Developer's Guide</option>
+    </select>
+    <div id="bookDetails"></div>
+ </body>
+ </html>
+ get_book_details.php
+ <?php
+ $title = $_POST['title'];
+ $xml = simplexml_load_file('books.xml');
+ foreach ($xml->book as $book) {
+    if ($book->title == $title) {
+        echo 'Title: ' . $book->title . '<br>';
+        echo 'Author: ' . $book->author . '<br>';
+        echo 'Year: ' . $book->year . '<br>';
+        echo 'Price: ' . $book->price;
+    }
+ }
+ ?>
+ ***********************************************************
+ slip 17
+Write a Java Script Program to show Hello Good Morning message onload event using 
+alert box 
+and display the Student registration from.
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Student Registration</title>
+    <script>
+        window.onload = function() {
+            alert('Hello Good Morning');
+        };
+    </script>
+ </head>
+ <body>
+    <h1>Student Registration Form</h1>
+    <form>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="dob"><br>
+        <input type="submit" value="Submit">
+    </form>
+ </body>
+ </html>
+ ***********************************************************
+ slip 18
+ Write a Java Script Program to print Fibonacci numbers on onclick event. 
+<!DOCTYPE html>
+ <html>
+ <head>
+    <title>Fibonacci Numbers</title>
+    <script>
+        function printFibonacciNumbers() {
+            var n = 10; // Number of Fibonacci numbers to print
+            var fib = [0, 1]; // First two Fibonacci numbers
+            // Generate the Fibonacci numbers
+            for(var i = 2; i < n; i++) {
+                fib[i] = fib[i - 1] + fib[i - 2];
+            }
+            // Print the Fibonacci numbers
+            document.getElementById('output').innerHTML = fib.join(', ');
+        }
+    </script>
+</head>
+ <body>
+    <button onclick="printFibonacciNumbers()">Print Fibonacci Numbers</button>
+    <div id="output"></div>
+ </body>
+ </html>
+ ***********************************************************
+ slip 19
+ Write a Java Script Program to validate user name and password on onSubmit event.
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Login Form</title>
+    <script>
+        function validateForm() {
+            // Get the username and password
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            // Check if the username and password are not empty
+            if(username == "" || password == "") {
+                alert('Username and password cannot be empty.');
+                return false;
+            }
+            // Check if the username and password meet the length requirements
+            if(username.length < 5 || password.length < 8) {
+                alert('Username must be at least 5 characters and password must be 
+at least 8 characters.');
+                return false;
+            }
+            // If everything is valid, return true
+            return true;
+        }
+    </script>
+ </head>
+ <body>
+    <!-- HTML form for entering the username and password -->
+    <form onsubmit="return validateForm()">
+        Username: <input type="text" id="username" name="username"><br>
+        Password: <input type="password" id="password" name="password"><br>
+        <input type="submit" value="Submit">
+    </form>
+ </body>
+ </html>
+ ***********************************************************
+slip 20
+ create a student.xml file containing at least 5 student information
+ <?xml version="1.0" encoding="UTF-8"?>
+ <students>
+    <student id="1">
+        <name>John Doe</name>
+        <grade>10</grade>
+        <school>High School</school>
+    </student>
+    <student id="2">
+        <name>Jane Smith</name>
+        <grade>11</grade>
+        <school>High School</school>
+    </student>
+    <student id="3">
+        <name>Bob Johnson</name>
+        <grade>12</grade>
+        <school>High School</school>
+    </student>
+    <student id="4">
+        <name>Alice Williams</name>
+        <grade>10</grade>
+        <school>High School</school>
+    </student>
+    <student id="5">
+        <name>Charlie Brown</name>
+        <grade>11</grade>
+        <school>High School</school>
+    </student>
+ </students>
+ ***********************************************************
+ slip 21
+ Add a JavaScript File in Codeigniter. The Javascript code should check whether a 
+number is 
+positive or negative. 
+assets/js/CheckNumber.js
+ function checkNumber(n) {
+    if(n > 0) {
+        alert(n + " is a positive number.");
+    } else if(n < 0) {
+        alert(n + " is a negative number.");
+    } else {
+        alert(n + " is neither positive nor negative.");
+    }
+ }
+ <!DOCTYPE html>
+<html>
+ <head>
+    <title>Check Number</title>
+    <script src="<?php echo base_url('assets/js/checkNumber.js'); ?>"></script>
+ </head>
+ <body>
+    <button onclick="checkNumber(10)">Check Number</button>
+ </body>
+ </html>
+ ***********************************************************
+ slip 22
+ Create a table student having attributes(rollno, name, class). Using codeigniter, 
+connect to the 
+database and insert 5 recodes in it.
+ Sure, here's how you can create a `student` table and insert records into it using 
+CodeIgniter.
+ First, you need to configure your database connection. You can do this in the 
+`application/config/database.php` file:
+ ```php
+ $db['default'] = array(
+    'dsn'   => '',
+    'hostname' => 'localhost',
+    'username' => 'your_username',
+    'password' => 'your_password',
+    'database' => 'your_database',
+    'dbdriver' => 'mysqli',
+    // Other configuration options...
+ );
+ ```
+ Replace `'your_username'`, `'your_password'`, and `'your_database'` with your 
+actual database username, password, and database name.
+ Next, you can create a model to interact with the database. Here's an example of 
+how you might create the `student` table and insert records into it:
+ ```php
+ class Student_model extends CI_Model {
+    public function __construct()
+    {
+        $this->load->database();
+    }
+    public function create_table()
+    {
+        $this->load->dbforge();
+        $fields = array(
+            'rollno' => array(
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE
+            ),
+            'name' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+            ),
+            'class' => array(
+                'type' =>'VARCHAR',
+                'constraint' => '100',
+            ),
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('rollno', TRUE);
+        $this->dbforge->create_table('student');
+    }
+    public function insert_students()
+    {
+        $students = array(
+            array(
+                'name' => 'Student 1',
+                'class' => 'Class 1',
+            ),
+            array(
+                'name' => 'Student 2',
+                'class' => 'Class 2',
+            ),
+            // Add more students...
+        );
+        $this->db->insert_batch('student', $students);
+    }
+ }
+ ```
+ This model has two methods: `create_table()` and `insert_students()`.
+ The `create_table()` method creates the `student` table with `rollno`, `name`, and
+ `class` fields. 
+The `insert_students()` method inserts an array of students into the `student` 
+table.
+ You can load this model in a controller and call these methods to create the table 
+and insert the students. For example:
+ ```php
+ class Student_controller extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('student_model');
+    }
+    public function index()
+    {
+        $this->student_model->create_table();
+        $this->student_model->insert_students();
+    }
+ }
+ ```
+ This controller loads the `Student_model` in its constructor, and calls the 
+`create_table()` and `insert_students()` methods in its `index()` method.
+ Please replace `'Student 1'`, `'Class 1'`, `'Student 2'`, and `'Class 2'` with the 
+actual student names and classes. 
+You can add more students to the `$students` array in the `insert_students()` 
+method. Please let me know if you need help with that.
+ ***********************************************************
+ slip 23
+ Create a table student having attributes(rollno, name, class) containing atleast 5 
+recodes . Using 
+codeigniter, display all its records. 
+Sure, here's how you can create a `student` table and display its records using 
+CodeIgniter.
+ First, you need to configure your database connection. You can do this in the 
+`application/config/database.php` file:
+ ```php
+ $db['default'] = array(
+    'dsn'   => '',
+    'hostname' => 'localhost',
+    'username' => 'your_username',
+    'password' => 'your_password',
+    'database' => 'your_database',
+    'dbdriver' => 'mysqli',
+    // Other configuration options...
+ );
+```
+ Replace `'your_username'`, `'your_password'`, and `'your_database'` with your 
+actual database username, password, and database name.
+ Next, you can create a model to interact with the database. Here's an example of 
+how you might create the `student` table and fetch its records:
+ ```php
+ class Student_model extends CI_Model {
+    public function __construct()
+    {
+        $this->load->database();
+    }
+    public function get_students()
+    {
+        $query = $this->db->get('student');
+        return $query->result_array();
+    }
+ }
+ ```
+ This model has a method `get_students()` that fetches all records from the 
+`student` table and returns them as an array.
+ You can load this model in a controller and call this method to fetch the students.
+ For example:
+ ```php
+ class Student_controller extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('student_model');
+    }
+    public function index()
+    {
+        $data['students'] = $this->student_model->get_students();
+        $this->load->view('students/index', $data);
+    }
+ }
+ ```
+ This controller loads the `Student_model` in its constructor, and calls the 
+`get_students()` method in its `index()` method. 
+It then passes the fetched students to a view.
+The view (`students/index.php`) can then display the students like this:
+ ```php
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Students</title>
+ </head>
+ <body>
+    <h1>Students</h1>
+    <table>
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Class</th>
+        </tr>
+        <?php foreach ($students as $student): ?>
+        <tr>
+            <td><?php echo $student['rollno']; ?></td>
+            <td><?php echo $student['name']; ?></td>
+            <td><?php echo $student['class']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+ </body>
+ </html>
+ ```
+ This view iterates over the students and creates a table row for each one, with 
+table data cells for the roll number, name, and class.
+ Please replace `'your_username'`, `'your_password'`, `'your_database'`, 
+`'student_model'`, `'Student_model'`, `'student'`, `'students/index'`, and 
+`'students'` with your actual database username, password, database name, model 
+name, model class name, table name, view path, and view data key, respectively. You
+ can run this CodeIgniter application on a server that supports PHP. Please let me 
+know if you need help with that.
+ ***********************************************************
+ slip 24
+ Write a PHP script to create student.xml file which contains student roll no, name,
+ address, college 
+and course. Print students detail of specific course in tabular format after 
+accepting course as input.
+ <?php
+ // Create XML structure for students
+ $studentsXML = new SimpleXMLElement('<Students></Students>');
+// Add student details
+ $student1 = $studentsXML->addChild('Student');
+ $student1->addChild('RollNo', '101');
+ $student1->addChild('Name', 'John Doe');
+ $student1->addChild('Address', '123 Main St, City');
+ $student1->addChild('College', 'ABC College');
+ $student1->addChild('Course', 'Computer Science');
+ $student2 = $studentsXML->addChild('Student');
+ $student2->addChild('RollNo', '102');
+ $student2->addChild('Name', 'Jane Smith');
+ $student2->addChild('Address', '456 Elm St, Town');
+ $student2->addChild('College', 'XYZ College');
+ $student2->addChild('Course', 'Electrical Engineering');
+ // Save the XML structure to student.xml
+ $studentsXML->asXML('student.xml');
+ echo "student.xml file created successfully.";
+ ?>
+ <?php
+ // Load student.xml file
+ $studentsXML = simplexml_load_file('student.xml');
+ // Accept course as input
+ $course = "Computer Science"; // You can replace this with user input
+ // Print students details for the specified course
+ echo "<table border='1'>
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>College</th>
+            <th>Course</th>
+        </tr>";
+ foreach ($studentsXML->Student as $student) {
+    if ((string)$student->Course == $course) {
+        echo "<tr>";
+        echo "<td>".$student->RollNo."</td>";
+        echo "<td>".$student->Name."</td>";
+        echo "<td>".$student->Address."</td>";
+        echo "<td>".$student->College."</td>";
+        echo "<td>".$student->Course."</td>";
+        echo "</tr>";
+    }
+}
+ echo "</table>";
+ ?>
+ ***********************************************************
+ slip 25
+ Write a script to create “cricket.xml” file with multiple elements as shown below:
+ <CricketTeam>
+ <Team country=”Australia”>
+ <player>____</player>
+ <runs>______</runs>
+ <wicket>____</wicket>
+ </Team>
+ </CricketTeam>
+ Write a script to add multiple elements in “cricket.xml” file of category, 
+country=”India”
+ <?php
+ // Create initial XML structure
+ $cricketXML = new SimpleXMLElement('<CricketTeam></CricketTeam>');
+ // Add elements for Australia
+ $australiaTeam = $cricketXML->addChild('Team');
+ $australiaTeam->addAttribute('country', 'Australia');
+ // Add player details for Australia
+ $australiaTeam->addChild('player', 'Player1');
+ $australiaTeam->addChild('runs', '100');
+ $australiaTeam->addChild('wicket', '2');
+ // Save the initial structure to cricket.xml
+ $cricketXML->asXML('cricket.xml');
+ // Load the existing cricket.xml file
+ $cricketXML = simplexml_load_file('cricket.xml');
+ // Add elements for India
+ $indiaTeam = $cricketXML->addChild('Team');
+ $indiaTeam->addAttribute('country', 'India');
+ // Add player details for India
+ $indiaTeam->addChild('player', 'Player2');
+ $indiaTeam->addChild('runs', '150');
+ $indiaTeam->addChild('wicket', '1');
+ // Add more players for India
+ $player3 = $indiaTeam->addChild('player', 'Player3');
+ $player3->addChild('runs', '80');
+ $player3->addChild('wicket', '0');
+// Save the updated structure to cricket.xml
+ $cricketXML->asXML('cricket.xml');
+ echo "Elements added to cricket.xml successfully.";
+ ?>
+ ***********************************************************
+ slip 26
+ Create employee table as follows EMP (eno, ename, designation, salary). Write Ajax 
+program to 
+select the employees name and print the selected employee’s details.
+ CREATE TABLE EMP (
+    eno INT PRIMARY KEY,
+    ename VARCHAR(100),
+    designation VARCHAR(100),
+    salary DECIMAL(10, 2)
+ );
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ </head>
+ <body>
+ <h2>Select Employee</h2>
+ <select id="employee">
+    <!-- Options will be loaded dynamically -->
+ </select>
+ <div id="employeeDetails"></div>
+ <script>
+ $(document).ready(function(){
+    $.ajax({
+        url: 'getEmployees.php',
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+            $.each(data, function(key, value) {
+                $('#employee').append('<option value="' + value.eno + '">' + 
+value.ename + '</option>');
+            });
+        }
+    });
+    $('#employee').change(function(){
+        var eno = $(this).val();
+        $.ajax({
+            url: 'getEmployeeDetails.php',
+            type: 'get',
+            data: {eno: eno},
+            dataType: 'json',
+            success: function(data) {
+                $('#employeeDetails').html('<p>Name: ' + data.ename + 
+'</p><p>Designation: ' + data.designation + '</p><p>Salary: ' + data.salary + 
+'</p>');
+            }
+        });
+    });
+ });
+ </script>
+ </body>
+ </html>
+ getEmployees.php
+ <?php
+ $host = 'localhost'; // Change as needed
+ $db   = 'your_database';
+ $user = 'your_username';
+ $pass = 'your_password';
+ $dsn = "pgsql:host=$host;dbname=$db";
+ $dbconn = pg_connect($dsn);
+ $sql = "SELECT eno, ename FROM EMP";
+ $result = pg_query($dbconn, $sql);
+ $data = array();
+ while ($row = pg_fetch_assoc($result)) {
+    $data[] = $row;
+ }
+ echo json_encode($data);
+ ?>
+ getEmployeeDetails.php
+ <?php
+ $host = 'localhost'; // Change as needed
+ $db   = 'your_database';
+ $user = 'your_username';
+$pass = 'your_password';
+ $dsn = "pgsql:host=$host;dbname=$db";
+ $dbconn = pg_connect($dsn);
+ $eno = $_GET['eno'];
+ $sql = "SELECT * FROM EMP WHERE eno = $1";
+ $result = pg_query_params($dbconn, $sql, array($eno));
+ $data = pg_fetch_assoc($result);
+ echo json_encode($data);
+ ?>
+ ***********************************************************
+ slip 27
+ Create web Application that contains Voters details and check proper validation 
+for (name, 
+age, and nationality), as Name should be in upper case letters only, Age should not
+ be less than 
+18 yrs and Nationality should be Indian.(use HTML-AJAX-PHP)
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ </head>
+ <body>
+ <h2>Voter Registration</h2>
+ <form id="voterForm">
+ Name: <input type="text" id="name" required><br>
+ Age: <input type="number" id="age" required><br>
+ Nationality: <input type="text" id="nationality" required><br>
+ <input type="submit" value="Submit">
+ </form>
+ <div id="message"></div>
+ <script>
+ $('#voterForm').submit(function(e) {
+ e.preventDefault();
+ var name = $('#name').val();
+ var age = $('#age').val();
+ var nationality = $('#nationality').val();
+ if (name !== name.toUpperCase()) {
+        $('#message').html('<p>Name should be in upper case letters only.</p>');
+        return;
+    }
+    if (age < 18) {
+        $('#message').html('<p>Age should not be less than 18 years.</p>');
+        return;
+    }
+    if (nationality !== 'Indian') {
+        $('#message').html('<p>Nationality should be Indian.</p>');
+        return;
+    }
+    $.ajax({
+        url: 'registerVoter.php',
+        type: 'post',
+        data: {name: name, age: age, nationality: nationality},
+        success: function(data) {
+            $('#message').html('<p>' + data + '</p>');
+        }
+    });
+ });
+ </script>
+ </body>
+ </html>
+ registerVoter.php
+ <?php
+ $name = $_POST['name'];
+ $age = $_POST['age'];
+ $nationality = $_POST['nationality'];
+ // Connect to your database and insert the voter's details
+ // $db = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
+ // $sql = "INSERT INTO voters (name, age, nationality) VALUES (?, ?, ?)";
+ // $stmt = $db->prepare($sql);
+ // $stmt->execute([$name, $age, $nationality]);
+ echo "Voter registered successfully!";
+ ?>
+ ***********************************************************
+ slip 28
+ Write a PHP script using AJAX concept, to check user name and password are valid or
+ Invalid (use 
+database to store user name and password).
+<!DOCTYPE html>
+ <html>
+ <head>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ </head>
+ <body>
+ <h2>Login</h2>
+ <form id="loginForm">
+    Username: <input type="text" id="username" required><br>
+    Password: <input type="password" id="password" required><br>
+    <input type="submit" value="Submit">
+ </form>
+ <div id="message"></div>
+ <script>
+ $('#loginForm').submit(function(e) {
+    e.preventDefault();
+    var username = $('#username').val();
+    var password = $('#password').val();
+    $.ajax({
+        url: 'checkLogin.php',
+        type: 'post',
+        data: {username: username, password: password},
+        success: function(data) {
+            $('#message').html('<p>' + data + '</p>');
+        }
+    });
+ });
+ </script>
+ </body>
+ </html>
+ checkLogin.php
+ <?php
+ $host = 'localhost'; // Change as needed
+ $db   = 'your_database';
+ $user = 'your_username';
+ $pass = 'your_password';
+ $dsn = "mysql:host=$host;dbname=$db";
+ $pdo = new PDO($dsn, $user, $pass);
+$username = $_POST['username'];
+ $password = $_POST['password'];
+ $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+ $stmt = $pdo->prepare($sql);
+ $stmt->execute([$username, $password]);
+ if ($stmt->rowCount() > 0) {
+    echo "Login successful!";
+ } else {
+    echo "Invalid username or password.";
+ }
+ ?>
+ ***********************************************************
+ slip 29
+ Write a PHP script for the following: Design a form to accept a number from the 
+user. 
+Perform the operations and show the results. 
+1) Fibonacci Series. 
+2) To find sum of the digits of that number.
+ (Use the concept of self processing page.) 
+<!DOCTYPE html>
+ <html>
+ <body>
+ <h2>Number Operations</h2>
+ <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+  Number: <input type="number" name="num">
+  <input type="submit">
+ </form>
+ <?php
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // collect value of input field
+    $num = $_POST['num'];
+    // Fibonacci Series
+    echo "<h3>Fibonacci Series:</h3>";
+    $a = 0; 
+    $b = 1; 
+    echo $a . ", "; 
+    echo $b . ", "; 
+    for($i = 1; $i <= $num-2; $i++) { 
+        $c = $a + $b; 
+        echo $c . ", "; 
+        $a = $b; 
+        $b = $c; 
+    }
+    // Sum of digits
+    echo "<h3>Sum of Digits:</h3>";
+    $sum = array_sum(str_split($num));
+    echo $sum;
+ }
+ ?>
+ </body>
+ </html>
+ ***********************************************************
+ slip 30
+ Create a XML file which gives details of books available in “Bookstore” from 
+following 
+categories. 
+1) Yoga
+ 2) Story
+ 3) Technical
+ and elements in each category are in the following format
+ <Book>
+ <Book_Title> --------------</Book_Title>
+ <Book_Author> ---------------</Book_Author>
+ <Book_Price> --------------</Book_Price>
+ </Book>
+ Save the file as “Bookcategory.xml”
+ <Bookstore>
+    <Yoga>
+        <Book>
+            <Book_Title>The Power of Now</Book_Title>
+            <Book_Author>Eckhart Tolle</Book_Author>
+            <Book_Price>15.99</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Light on Yoga</Book_Title>
+            <Book_Author>B.K.S. Iyengar</Book_Author>
+            <Book_Price>12.50</Book_Price>
+        </Book>
+    </Yoga>
+    <Story>
+        <Book>
+            <Book_Title>To Kill a Mockingbird</Book_Title>
+            <Book_Author>Harper Lee</Book_Author>
+            <Book_Price>10.00</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Harry Potter and the Philosopher's Stone</Book_Title>
+            <Book_Author>J.K. Rowling</Book_Author>
+            <Book_Price>14.99</Book_Price>
+        </Book>
+    </Story>
+    <Technical>
+        <Book>
+            <Book_Title>Clean Code: A Handbook of Agile Software 
+Craftsmanship</Book_Title>
+            <Book_Author>Robert C. Martin</Book_Author>
+            <Book_Price>25.00</Book_Price>
+        </Book>
+        <Book>
+            <Book_Title>Introduction to Algorithms</Book_Title>
+            <Book_Author>Thomas H. Cormen</Book_Author>
+            <Book_Price>30.00</Book_Price>
+        </Book>
+    </Technical>
+ </Bookstore>
+ <?php
+ $dom = new DOMDocument('1.0', 'UTF-8');
+ $bookstore = $dom->createElement('Bookstore');
+ $categories = ['Yoga', 'Story', 'Technical'];
+ foreach ($categories as $category) {
+    $categoryNode = $dom->createElement($category);
+    // Add books to each category
+    for ($i = 1; $i <= 3; $i++) {
+        $book = $dom->createElement('Book');
+        $title = $dom->createElement('Book_Title', 'Title ' . $i);
+        $author = $dom->createElement('Book_Author', 'Author ' . $i);
+        $price = $dom->createElement('Book_Price', 'Price ' . $i);
+        $book->appendChild($title);
+        $book->appendChild($author);
+        $book->appendChild($price);
+        $categoryNode->appendChild($book);
+    }
+    $bookstore->appendChild($categoryNode);
+ }
+ $dom->appendChild($bookstore);
+$dom->save('Bookcategory.xml');
+ ?>

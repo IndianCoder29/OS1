@@ -1,0 +1,953 @@
+slip 1
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ import pandas as pd
+ import numpy as np
+ # Create 'Position_Salaries' Data set
+ data = {
+ 'Position': ['Business Analyst', 'Junior Consultant', 'Senior Consultant', 
+'Manager', 'Country Manager', 'Region Manager', 'Partner', 'Senior Partner', 
+'C-level', 'CEO'],
+ 'Level': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+ 'Salary': [45000, 50000, 60000, 80000, 110000, 150000, 200000, 300000, 500000, 
+1000000]
+ }
+ df = pd.DataFrame(data)
+ # Identify independent and target variable
+ X = df['Level'].values.reshape(-1,1)
+ y = df['Salary']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print("X_train:")
+ print(X_train)
+ print("y_train:")
+ print(y_train)
+ print("\\nTesting set:")
+ print("X_test:")
+ print(X_test)
+ print("y_test:")
+ print(y_test)
+ # Build a simple linear regression model
+ regressor = LinearRegression()
+ regressor.fit(X_train, y_train)
+ # Print the coefficients of the model
+ print("\\nCoefficients of the linear regression model:")
+ print("Intercept:", regressor.intercept_)
+ print("Slope:", regressor.coef_[0])
+ *****************************************************
+ slip 2
+from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ import pandas as pd
+ import numpy as np
+ # Create 'Salary' Data set
+ data = {
+ 'Experience': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+ 'Salary': [45000, 50000, 60000, 80000, 110000, 150000, 200000, 300000, 500000, 
+1000000],
+ 'Purchases': [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+ }
+ df = pd.DataFrame(data)
+ # Identify independent and target variable
+ X = df[['Experience', 'Salary']]
+ y = df['Purchases']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print("X_train:")
+ print(X_train)
+ print("y_train:")
+ print(y_train)
+ print("\\nTesting set:")
+ print("X_test:")
+ print(X_test)
+ print("y_test:")
+ print(y_test)
+ # Build a simple linear regression model
+ regressor = LinearRegression()
+ regressor.fit(X_train, y_train)
+ # Print the coefficients of the model
+ print("\\nCoefficients of the linear regression model:")
+ print("Intercept:", regressor.intercept_)
+ print("Slope:", regressor.coef_)
+ *****************************************************
+ slip 3
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ import pandas as pd
+# Create 'User' Data set
+ data = {
+ 'User ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+ 'Gender': ['Male', 'Female', 'Male', 'Female', 'Male', 'Female', 'Male', 
+'Female', 'Male', 'Female'],
+ 'Age': [20, 25, 30, 35, 40, 45, 50, 55, 60, 65],
+ 'Estimated Salary': [45000, 50000, 60000, 80000, 110000, 150000, 200000, 
+300000, 500000, 1000000],
+ 'Purchased': [0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
+ }
+ df = pd.DataFrame(data)
+ # Convert 'Gender' to numerical values
+ df['Gender'] = df['Gender'].map({'Male': 0, 'Female': 1})
+ # Identify independent and target variable
+ X = df[['Gender', 'Age', 'Estimated Salary']]
+ y = df['Purchased']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print("X_train:")
+ print(X_train)
+ print("y_train:")
+ print(y_train)
+ print("\\nTesting set:")
+ print("X_test:")
+ print(X_test)
+ print("y_test:")
+ print(y_test)
+ # Build a logistic regression model
+ classifier = LogisticRegression(random_state=0)
+ classifier.fit(X_train, y_train)
+ # Print the coefficients of the model
+ print("\\nCoefficients of the logistic regression model:")
+ print("Intercept:", classifier.intercept_)
+ print("Slope:", classifier.coef_)
+ *****************************************************
+ slip 4
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+import pandas as pd
+ # Create 'Fish' Data set
+ data = {
+ 'Species': ['Bream', 'Roach', 'Whitefish', 'Parkki', 'Perch', 'Pike', 'Smelt'],
+ 'Length': [25.4, 20.5, 22.0, 18.2, 19.0, 23.2, 21.5],
+ 'Height': [11.52, 9.31, 9.84, 8.14, 8.91, 10.12, 9.65],
+ 'Width': [4.02, 3.42, 3.69, 3.03, 3.32, 3.63, 3.53],
+ 'Weight': [242.0, 120.0, 130.0, 110.0, 120.0, 150.0, 145.0]
+ }
+ df = pd.DataFrame(data)
+ # Convert 'Species' to numerical values
+ df['Species'] = df['Species'].astype('category').cat.codes
+ # Identify independent and target variable
+ X = df[['Species', 'Length', 'Height', 'Width']]
+ y = df['Weight']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print("X_train:")
+ print(X_train)
+ print("y_train:")
+ print(y_train)
+ print("\\nTesting set:")
+ print("X_test:")
+ print(X_test)
+ print("y_test:")
+ print(y_test)
+ # Build a simple linear regression model
+ regressor = LinearRegression()
+ regressor.fit(X_train, y_train)
+ # Print the coefficients of the model
+ print("\\nCoefficients of the linear regression model:")
+ print("Intercept:", regressor.intercept_)
+ print("Slope:", regressor.coef_)
+ *****************************************************
+ slip 5
+ from sklearn.datasets import load_iris
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+ import pandas as pd
+ # Load iris dataset
+ iris = load_iris()
+ df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+ df['species'] = iris.target
+ # View some basic statistical details
+ print(df.groupby('species').describe().transpose())
+ # Identify independent and target variable
+ X = df.drop('species', axis=1)
+ y = df['species']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Build a logistic regression model
+ classifier = LogisticRegression(random_state=0, max_iter=200)
+ classifier.fit(X_train, y_train)
+ # Predict the test set results
+ y_pred = classifier.predict(X_test)
+ # Find the accuracy of the model
+ accuracy = accuracy_score(y_test, y_pred)
+ print(f"\nThe accuracy of the logistic regression model is: {accuracy}")
+ *****************************************************
+ slip 6
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the dataset
+ dataset = [
+ ['eggs', 'milk', 'bread'],
+ ['eggs', 'apple'],
+ ['milk', 'bread'],
+ ['apple', 'milk'],
+ ['milk', 'apple', 'bread']
+ ]
+ # Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(dataset).transform(dataset)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+# Apply the apriori algorithm to generate the frequent itemsets
+ for min_sup in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+ print(f"min_sup: {min_sup}")
+ frequent_itemsets = apriori(df, min_support=min_sup, use_colnames=True)
+ print(frequent_itemsets)
+ # Generate association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ print(rules)
+ *****************************************************
+ slip 7
+ import pandas as pd
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Read the dataset
+ df = pd.read_csv('path_to_dataset')
+ # Display its information
+ print(df.info())
+ # Preprocess the data (drop null values etc.)
+ df = df.dropna()
+ # Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(df).transform(df)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+ # Generate association rules
+ rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+ print(rules)
+ *****************************************************
+ slip 8
+ # Import necessary libraries
+ import pandas as pd
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the groceries dataset
+ groceries = [['milk', 'bread', 'butter'], 
+['beer', 'butter', 'bread'], 
+['milk', 'apple', 'butter'], 
+['bread', 'butter', 'beer'], 
+['apple', 'beer', 'butter']]
+ # Convert the groceries into a DataFrame
+ te = TransactionEncoder()
+ te_ary = te.fit(groceries).transform(groceries)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Display the dataset information
+ print(df.info())
+ # Preprocess the data (drop null values etc.)
+ df = df.dropna()
+ # Apply the apriori algorithm to generate the frequent itemsets
+ frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+ # Generate the association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ # Print the frequent itemsets
+ print(frequent_itemsets)
+ # Print the association rules
+ print(rules)
+ *****************************************************
+ slip 9
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Define the transactions
+ transactions = [['eggs', 'milk','bread'], ['eggs', 'apple'], ['milk', 'bread'], 
+['apple', 'milk'], ['milk', 'apple', 'bread']]
+ # Convert the transactions into a DataFrame
+ te = TransactionEncoder()
+ te_ary = te.fit(transactions).transform(transactions)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+ # Generate the association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+# Print the frequent itemsets
+ print(frequent_itemsets)
+ # Print the association rules
+ print(rules)
+ *****************************************************
+ slip 10
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the dataset
+ dataset = [
+    ['eggs', 'milk', 'bread'],
+    ['eggs', 'apple'],
+    ['milk', 'bread'],
+    ['apple', 'milk'],
+    ['milk', 'apple', 'bread']
+ ]
+ # Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(dataset).transform(dataset)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ for min_sup in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+    print(f"min_sup: {min_sup}")
+    frequent_itemsets = apriori(df, min_support=min_sup, use_colnames=True)
+    print(frequent_itemsets)
+    # Generate association rules
+    rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+    print(rules)
+ *****************************************************
+ slip 11
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the dataset
+ dataset = [
+    ['butter', 'bread', 'milk'],
+    ['butter', 'flour', 'milk', 'sugar'],
+    ['butter', 'eggs', 'milk', 'salt'],
+    ['eggs'],
+    ['butter', 'flour', 'milk', 'salt']
+ ]
+# Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(dataset).transform(dataset)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ for min_sup in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+ print(f"min_sup: {min_sup}")
+ frequent_itemsets = apriori(df, min_support=min_sup, use_colnames=True)
+ print(frequent_itemsets)
+ # Generate association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ print(rules)
+ *****************************************************
+ slip 12
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ import pandas as pd
+ # Create 'heights-and-weights' Data set
+ data = {
+ 'Height': [170, 165, 180, 175, 169, 182, 177, 185, 163, 158],
+ 'Weight': [65, 60, 75, 70, 64, 77, 72, 80, 61, 57],
+ 'Purchases': [5, 3, 7, 6, 5, 8, 7, 9, 4, 2]
+ }
+ df = pd.DataFrame(data)
+ # Identify independent and target variable
+ X = df[['Height', 'Weight']]
+ y = df['Purchases']
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print("X_train:")
+ print(X_train)
+ print("y_train:")
+ print(y_train)
+ print("\\nTesting set:")
+ print("X_test:")
+ print(X_test)
+ print("y_test:")
+print(y_test)
+ # Build a simple linear regression model
+ regressor = LinearRegression()
+ regressor.fit(X_train, y_train)
+ # Print the coefficients of the model
+ print("\\nCoefficients of the linear regression model:")
+ print("Intercept:", regressor.intercept_)
+ print("Slope:", regressor.coef_)
+ *****************************************************
+ slip 13
+ # Import necessary libraries
+ import pandas as pd
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ from sklearn.metrics import mean_squared_error
+ # Define the URL of the nursery dataset
+ url = 
+"https://archive.ics.uci.edu/ml/machine-learning-databases/nursery/nursery.data"
+ # Define the column names
+ column_names = ["parents", "has_nurs", "form", "children", "housing", "finance", 
+"social", "health", "class"]
+ # Load the nursery dataset from UCI
+ df = pd.read_csv(url, names=column_names)
+ # Convert categorical values into numeric format using one-hot encoding
+ df = pd.get_dummies(df)
+ # Define the predictor variables and the target variable
+ X = df.drop("class", axis=1)
+ y = df["class"]
+ # Split the variables into training and testing sets
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=0)
+ # Print the training and testing sets
+ print("Training set:")
+ print(X_train.head())
+ print(y_train.head())
+ print("\nTesting set:")
+ print(X_test.head())
+ print(y_test.head())
+# Create a Linear Regression model and fit it to the training data
+ model = LinearRegression()
+ model.fit(X_train, y_train)
+ # Use the model to make predictions on the test set
+ y_pred = model.predict(X_test)
+ # Calculate the mean squared error of the predictions
+ mse = mean_squared_error(y_test, y_pred)
+ # Print the model's coefficients
+ print(f"Coefficients: {model.coef_}")
+ # Print the mean squared error
+ print(f"Mean Squared Error: {mse}")
+ # Print the model's score on the test set
+ print(f"Score: {model.score(X_test, y_test)}")
+ *****************************************************
+ slip 14
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the dataset
+ dataset = [
+ ['Apple', 'Mango', 'Banana'],
+ ['Mango', 'Banana', 'Cabbage', 'Carrots'],
+ ['Mango', 'Banana', 'Carrots'],
+ ['Mango', 'Carrots']
+ ]
+ # Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(dataset).transform(dataset)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ for min_sup in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+ print(f"min_sup: {min_sup}")
+ frequent_itemsets = apriori(df, min_support=min_sup, use_colnames=True)
+ print(frequent_itemsets)
+ # Generate association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ print(rules)
+ *****************************************************
+slip 15
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Create the dataset
+ dataset = [
+ ['eggs', 'milk', 'bread'],
+ ['eggs', 'apple'],
+ ['milk', 'bread'],
+ ['apple', 'milk'],
+ ['milk', 'apple', 'bread']
+ ]
+ # Convert the categorical values into numeric format
+ te = TransactionEncoder()
+ te_ary = te.fit(dataset).transform(dataset)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ for min_sup in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+ print(f"min_sup: {min_sup}")
+ frequent_itemsets = apriori(df, min_support=min_sup, use_colnames=True)
+ print(frequent_itemsets)
+ # Generate association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ print(rules)
+ *****************************************************
+ slip 16
+ import re
+ import nltk
+ import heapq
+ nltk.download('punkt')
+ nltk.download('stopwords')
+ from nltk.corpus import stopwords
+ # Consider any text paragraph
+ text = """
+ Replace this with your text paragraph.
+ """
+ # Preprocess the text to remove any special characters and digits
+ text = re.sub(r'\[[0-9]*\]', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ text = text.lower()
+ text = re.sub(r'\d', ' ', text)
+text = re.sub(r'\s+', ' ', text)
+ # Tokenize the text
+ sentences = nltk.sent_tokenize(text)
+ # Remove stopwords
+ stop_words = nltk.corpus.stopwords.words('english')
+ # Generate word frequencies
+ word_frequencies = {}
+ for word in nltk.word_tokenize(text):
+    if word not in stop_words:
+        if word not in word_frequencies.keys():
+            word_frequencies[word] = 1
+        else:
+            word_frequencies[word] += 1
+ # Calculate weighted frequencies
+ maximum_frequency = max(word_frequencies.values())
+ for word in word_frequencies.keys():
+    word_frequencies[word] = (word_frequencies[word]/maximum_frequency)
+ # Calculate sentence scores
+ sentence_scores = {}
+ for sent in sentences:
+    for word in nltk.word_tokenize(sent.lower()):
+        if word in word_frequencies.keys():
+            if len(sent.split(' ')) < 30:
+                if sent not in sentence_scores.keys():
+                    sentence_scores[sent] = word_frequencies[word]
+                else:
+                    sentence_scores[sent] += word_frequencies[word]
+ # Generate the summary
+ summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+ summary = ' '.join(summary_sentences)
+ print(summary)
+ *****************************************************
+ slip 17
+ import re
+ import nltk
+ import heapq
+ nltk.download('punkt')
+ nltk.download('stopwords')
+ from nltk.corpus import stopwords
+ # Consider the text paragraph
+ text = """
+So, keep working. Keep striving. Never give up. Fall down seven times, get up 
+eight. Ease is a greater threat to progress than hardship. Ease is a greater threat
+ to progress than hardship. So, keep moving, keep growing, keep learning. See you at
+ work.
+ """
+ # Preprocess the text to remove any special characters and digits
+ text = re.sub(r'\[[0-9]*\]', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ text = text.lower()
+ text = re.sub(r'\d', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ # Tokenize the text
+ sentences = nltk.sent_tokenize(text)
+ # Remove stopwords
+ stop_words = nltk.corpus.stopwords.words('english')
+ # Generate word frequencies
+ word_frequencies = {}
+ for word in nltk.word_tokenize(text):
+    if word not in stop_words:
+        if word not in word_frequencies.keys():
+            word_frequencies[word] = 1
+        else:
+            word_frequencies[word] += 1
+ # Calculate weighted frequencies
+ maximum_frequency = max(word_frequencies.values())
+ for word in word_frequencies.keys():
+    word_frequencies[word] = (word_frequencies[word]/maximum_frequency)
+ # Calculate sentence scores
+ sentence_scores = {}
+ for sent in sentences:
+    for word in nltk.word_tokenize(sent.lower()):
+        if word in word_frequencies.keys():
+            if len(sent.split(' ')) < 30:
+                if sent not in sentence_scores.keys():
+                    sentence_scores[sent] = word_frequencies[word]
+                else:
+                    sentence_scores[sent] += word_frequencies[word]
+ # Generate the summary
+ summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+ summary = ' '.join(summary_sentences)
+ print(summary)
+ *****************************************************
+slip 18
+ import nltk
+ from nltk.corpus import stopwords
+ from nltk.tokenize import word_tokenize, sent_tokenize
+ from nltk.probability import FreqDist
+ import matplotlib.pyplot as plt
+ from wordcloud import WordCloud
+ # Define the text
+ text = "So, keep working. Keep striving. Never give up. Fall down seven times, get 
+up eight. Ease is a greater threat to progress than hardship. Ease is a greater 
+threat to progress than hardship. So, keep moving, keep growing, keep learning. See
+ you at work."
+ # Tokenize the text into words
+ words = word_tokenize(text)
+ # Define English stopwords
+ stop_words = set(stopwords.words('english'))
+ # Remove stopwords from the tokenized words
+ filtered_words = [word for word in words if word.casefold() not in stop_words]
+ # Calculate word frequency distribution
+ fdist = FreqDist(filtered_words)
+ # Plot word frequency distribution
+ fdist.plot(30, cumulative=False)
+ plt.show()
+ # Generate word cloud
+ wordcloud = WordCloud(width = 1000, height = 500).generate(text)
+ # Plot word cloud
+ plt.figure(figsize=(15,8))
+ plt.imshow(wordcloud)
+ plt.axis("off")
+ plt.show()
+ *****************************************************
+ slip 19
+ # Import necessary libraries
+ import pandas as pd
+ from sklearn.feature_extraction.text import CountVectorizer
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from wordcloud import WordCloud
+ import matplotlib.pyplot as plt
+# Define the URL of the movie_review.csv dataset
+ url = 
+"https://raw.githubusercontent.com/dD2405/Twitter_Sentiment_Analysis/master/train.c
+ sv"
+ # Load the movie_review.csv dataset
+ df = pd.read_csv(url)
+ # Preprocess the data (drop null values etc.)
+ df = df.dropna()
+ # Convert the categorical values into numeric format
+ df['sentiment'] = df['sentiment'].map({'positive': 1, 'negative': 0})
+ # Define the predictor variable and the target variable
+ X = df['tweet']
+ y = df['sentiment']
+ # Convert the text into a matrix of token counts
+ vectorizer = CountVectorizer()
+ X = vectorizer.fit_transform(X)
+ # Split the data into training set and test set
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=0)
+ # Create a Logistic Regression model and fit it to the training data
+ model = LogisticRegression()
+ model.fit(X_train, y_train)
+ # Use the model to make predictions on the test set
+ y_pred = model.predict(X_test)
+ # Calculate the accuracy of the model
+ accuracy = accuracy_score(y_test, y_pred)
+ # Print the accuracy
+ print(f"The accuracy of the logistic regression model is {accuracy}.")
+ # Generate word cloud
+ wordcloud = WordCloud(width = 1000, height = 500).generate(' '.join(df['tweet']))
+ # Plot word cloud
+ plt.figure(figsize=(15,8))
+ plt.imshow(wordcloud)
+ plt.axis("off")
+ plt.show()
+ *****************************************************
+slip 20
+ import nltk
+ from nltk.corpus import stopwords
+ from nltk.tokenize import word_tokenize
+ # Define the text
+ text = """Hello all, Welcome to Python Programming Academy. Python 
+Programming Academy is a nice platform to learn new programming skills. It is 
+difficult to get enrolled 
+in this Academy."""
+ # Tokenize the text into words
+ words = word_tokenize(text)
+ # Define English stopwords
+ stop_words = set(stopwords.words('english'))
+ # Remove stopwords from the tokenized words
+ filtered_words = [word for word in words if word.casefold() not in stop_words]
+ # Print the words after removing stopwords
+ print(" ".join(filtered_words))
+ *****************************************************
+ slip 21
+ # Import necessary libraries
+ from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression
+ from sklearn import metrics
+ import pandas as pd
+ # Assuming the user data is in a CSV file named "user_data.csv"
+ # Load the data
+ df = pd.read_csv('user_data.csv')
+ # Assume that we want to predict a column named "target" based on the other columns
+ # Split the data into input (X) and output (y)
+ X = df.drop('target', axis=1)
+ y = df['target']
+ # Split the data into training set and test set
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=0)
+ # Create a Linear Regression model and fit it to the training data
+ model = LinearRegression()  
+model.fit(X_train, y_train)
+# Use the model to make predictions on the test set
+ y_pred = model.predict(X_test)
+ # Print the model's coefficients
+ print('Coefficients:', model.coef_)
+ # Print the mean squared error of the predictions
+ print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
+ # Print the model's score on the test set
+ print('Score:', model.score(X_test, y_test))
+ *****************************************************
+ slip 22
+ import nltk
+ from nltk.corpus import stopwords
+ from nltk.tokenize import word_tokenize
+ # Define the text
+ text = """Hello all, Welcome to Python Programming Academy. Python 
+Programming Academy is a nice platform to learn new programming skills. It is 
+difficult to get enrolled 
+in this Academy."""
+ # Tokenize the text into words
+ words = word_tokenize(text)
+ # Define English stopwords
+ stop_words = set(stopwords.words('english'))
+ # Remove stopwords from the tokenized words
+ filtered_words = [word for word in words if word.casefold() not in stop_words]
+ # Print the words after removing stopwords
+ print(" ".join(filtered_words))
+ *****************************************************
+ slip 23
+ import re
+ import nltk
+ import heapq
+ nltk.download('punkt')
+ nltk.download('stopwords')
+ from nltk.corpus import stopwords
+ # Consider the text paragraph
+ text = """
+ So, keep working. Keep striving. Never give up. Fall down seven times, get up 
+eight. Ease is a greater threat to progress than hardship. Ease is a greater threat
+to progress than hardship. So, keep moving, keep growing, keep learning. See you at
+ work.
+ """
+ # Preprocess the text to remove any special characters and digits
+ text = re.sub(r'\[[0-9]*\]', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ text = text.lower()
+ text = re.sub(r'\d', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ # Tokenize the text
+ sentences = nltk.sent_tokenize(text)
+ # Remove stopwords
+ stop_words = nltk.corpus.stopwords.words('english')
+ # Generate word frequencies
+ word_frequencies = {}
+ for word in nltk.word_tokenize(text):
+    if word not in stop_words:
+        if word not in word_frequencies.keys():
+            word_frequencies[word] = 1
+        else:
+            word_frequencies[word] += 1
+ # Calculate weighted frequencies
+ maximum_frequency = max(word_frequencies.values())
+ for word in word_frequencies.keys():
+    word_frequencies[word] = (word_frequencies[word]/maximum_frequency)
+ # Calculate sentence scores
+ sentence_scores = {}
+ for sent in sentences:
+    for word in nltk.word_tokenize(sent.lower()):
+        if word in word_frequencies.keys():
+            if len(sent.split(' ')) < 30:
+                if sent not in sentence_scores.keys():
+                    sentence_scores[sent] = word_frequencies[word]
+                else:
+                    sentence_scores[sent] += word_frequencies[word]
+ # Generate the summary
+ summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+ summary = ' '.join(summary_sentences)
+ print(summary)
+ *****************************************************
+ slip 24
+# Import necessary libraries
+ import pandas as pd
+ # Define the URL of the dataset
+ url = "dataset_url"  # replace with the actual URL of your dataset
+ # Load the dataset
+ df = pd.read_csv(url)
+ # Perform data cleaning operations
+ df = df.dropna()
+ # Find the total views, total likes, total dislikes and comment count
+ total_views = df['views'].sum()
+ total_likes = df['likes'].sum()
+ total_dislikes = df['dislikes'].sum()
+ comment_count = df['comment_count'].sum()
+ # Print the results
+ print(f"Total views: {total_views}")
+ print(f"Total likes: {total_likes}")
+ print(f"Total dislikes: {total_dislikes}")
+ print(f"Comment count: {comment_count}")
+ *****************************************************
+ slip 25
+ # Import necessary libraries
+ import pandas as pd
+ from nltk.corpus import stopwords
+ from nltk.tokenize import word_tokenize
+ from sklearn.model_selection import train_test_split
+ from sklearn.feature_extraction.text import CountVectorizer
+ from sklearn.linear_model import LogisticRegression
+ from textblob import TextBlob
+ # Define the URL of the dataset
+ url = "dataset_url"  # replace with the actual URL of your dataset
+ # Load the dataset
+ df = pd.read_csv(url)
+ # Perform data cleaning operations
+ df = df.dropna()
+ # Tokenize the comments into words
+ df['tokens'] = df['comments'].apply(word_tokenize)
+ # Define a function to get the sentiment of a text
+ def get_sentiment(text):
+return TextBlob(text).sentiment.polarity
+ # Get the sentiment of each comment
+ df['sentiment'] = df['comments'].apply(get_sentiment)
+ # Find the percentage of positive, negative and neutral comments
+ positive_comments = df[df['sentiment'] > 0].shape[0] / df.shape[0]
+ negative_comments = df[df['sentiment'] < 0].shape[0] / df.shape[0]
+ neutral_comments = df[df['sentiment'] == 0].shape[0] / df.shape[0]
+ # Print the percentages
+ print(f"Positive comments: {positive_comments * 100}%")
+ print(f"Negative comments: {negative_comments * 100}%")
+ print(f"Neutral comments: {neutral_comments * 100}%")
+ *****************************************************
+ slip 26
+ import re
+ import nltk
+ import heapq
+ nltk.download('punkt')
+ nltk.download('stopwords')
+ from nltk.corpus import stopwords
+ # Consider the text paragraph
+ text = """
+ So, keep working. Keep striving. Never give up. Fall down seven times, get up 
+eight. Ease is a greater threat to progress than hardship. Ease is a greater threat
+ to progress than hardship. So, keep moving, keep growing, keep learning. See you at
+ work.
+ """
+ # Preprocess the text to remove any special characters and digits
+ text = re.sub(r'\[[0-9]*\]', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ text = text.lower()
+ text = re.sub(r'\d', ' ', text)
+ text = re.sub(r'\s+', ' ', text)
+ # Tokenize the text
+ sentences = nltk.sent_tokenize(text)
+ # Remove stopwords
+ stop_words = nltk.corpus.stopwords.words('english')
+ # Generate word frequencies
+ word_frequencies = {}
+ for word in nltk.word_tokenize(text):
+ if word not in stop_words:
+        if word not in word_frequencies.keys():
+            word_frequencies[word] = 1
+        else:
+            word_frequencies[word] += 1
+ # Calculate weighted frequencies
+ maximum_frequency = max(word_frequencies.values())
+ for word in word_frequencies.keys():
+    word_frequencies[word] = (word_frequencies[word]/maximum_frequency)
+ # Calculate sentence scores
+ sentence_scores = {}
+ for sent in sentences:
+    for word in nltk.word_tokenize(sent.lower()):
+        if word in word_frequencies.keys():
+            if len(sent.split(' ')) < 30:
+                if sent not in sentence_scores.keys():
+                    sentence_scores[sent] = word_frequencies[word]
+                else:
+                    sentence_scores[sent] += word_frequencies[word]
+ # Generate the summary
+ summary_sentences = heapq.nlargest(7, sentence_scores, key=sentence_scores.get)
+ summary = ' '.join(summary_sentences)
+ print(summary)
+ *****************************************************
+ slip 27
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Define the transactions
+ transactions = [['eggs', 'milk','bread'], ['eggs', 'apple'], ['milk', 'bread'], 
+['apple', 'milk'], ['milk', 'apple', 'bread']]
+ # Convert the transactions into a DataFrame
+ te = TransactionEncoder()
+ te_ary = te.fit(transactions).transform(transactions)
+ df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+ # Generate the association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ # Print the frequent itemsets
+ print(frequent_itemsets)
+# Print the association rules
+ print(rules)
+ *****************************************************
+ slip 28
+ # Import necessary libraries
+ import pandas as pd
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LinearRegression
+ from sklearn.metrics import mean_squared_error
+ # Create a car dataset
+ data = {
+ 'car_age': [5, 6, 7, 8, 5, 6, 7, 8, 5, 6, 7, 8],
+ 'car_mileage': [65000, 70000, 75000, 80000, 65000, 70000, 75000, 80000, 65000, 
+70000, 75000, 80000],
+ 'car_price': [5000, 4500, 4000, 3500, 5500, 5000, 4500, 4000, 6000, 5500, 5000,
+ 4500]
+ }
+ df = pd.DataFrame(data)
+ # Define the predictor variable and the target variable
+ X = df[['car_age', 'car_mileage']]
+ y = df['car_price']
+ # Split the data into training set and test set
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=0)
+ # Create a Linear Regression model and fit it to the training data
+ model = LinearRegression()
+ model.fit(X_train, y_train)
+ # Use the model to make predictions on the test set
+ y_pred = model.predict(X_test)
+ # Calculate the mean squared error of the predictions
+ mse = mean_squared_error(y_test, y_pred)
+ # Print the model's coefficients
+ print(f"Coefficients: {model.coef_}")
+ # Print the mean squared error
+ print(f"Mean Squared Error: {mse}")
+ # Print the model's score on the test set
+ print(f"Score: {model.score(X_test, y_test)}")
+ *****************************************************
+slip 29
+ # Import necessary libraries
+ import pandas as pd
+ from sklearn.model_selection import train_test_split
+ from sklearn.linear_model import LogisticRegression
+ from sklearn.metrics import accuracy_score
+ # Create a student score dataset
+ data = {
+ 'hours_studied': [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 1.75, 2.0, 2.25, 2.5, 2.75, 
+3.0, 3.25, 3.5, 4.0, 4.25, 4.5, 4.75, 5.0, 5.5],
+ 'test_score': [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1]
+ }
+ df = pd.DataFrame(data)
+ # Define the predictor variable and the target variable
+ X = df[['hours_studied']]
+ y = df['test_score']
+ # Split the data into training set and test set
+ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=0)
+ # Create a Logistic Regression model and fit it to the training data
+ model = LogisticRegression()
+ model.fit(X_train, y_train)
+ # Use the model to make predictions on the test set
+ y_pred = model.predict(X_test)
+ # Calculate the accuracy of the model
+ accuracy = accuracy_score(y_test, y_pred)
+ # Print the accuracy
+ print(f"The accuracy of the logistic regression model is {accuracy}.")
+ *****************************************************
+ slip 30
+ from mlxtend.preprocessing import TransactionEncoder
+ from mlxtend.frequent_patterns import apriori, association_rules
+ # Define the transactions
+ transactions = [['eggs', 'milk','bread'], ['eggs', 'apple'], ['milk', 'bread'], 
+['apple', 'milk'], ['milk', 'apple', 'bread']]
+ # Convert the transactions into a DataFrame
+ te = TransactionEncoder()
+ te_ary = te.fit(transactions).transform(transactions)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+ # Apply the apriori algorithm to generate the frequent itemsets
+ frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+ # Generate the association rules
+ rules = association_rules(frequent_itemsets, metric="confidence", 
+min_threshold=0.7)
+ # Print the frequent itemsets
+ print(frequent_itemsets)
+ # Print the association rules
+ print(rules)
